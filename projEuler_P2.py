@@ -13,3 +13,28 @@ By starting with 1 and 2, the first 10 terms will be:
 
 By considering the terms in the Fibonacci sequence whose values do not exceed 
 four million, find the sum of the even-valued terms.'''
+
+
+memo={}
+def fib_seq(n):
+    if n in memo:
+        return memo[n]
+    if n==1:
+        return 1
+    if n==2:
+        return 2
+    else:
+        memo[n]=fib_seq(n-1)+fib_seq(n-2)
+        return memo[n]
+
+
+def fib_sum():
+    n=1
+    while fib_seq(n)<4*1e6:
+        n+=1
+    lst=[x for x in memo.values()][:-1]
+    lst=[x for x in lst if x%2==0]
+    return sum(lst)+2
+
+if __name__=="__main__":
+    print("The sum of the even valued Fibonacci numbers up to four million is equal to {}".format(fib_sum()))
